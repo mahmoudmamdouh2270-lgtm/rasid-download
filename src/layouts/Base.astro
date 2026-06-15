@@ -5,6 +5,9 @@ import cairoArabic from '../styles/fonts/cairo-arabic.woff2';
 import reemkufiArabic from '../styles/fonts/reemkufi-arabic.woff2';
 const base = import.meta.env.BASE_URL;
 const { title = 'رصيد — مساعد مالي يومي لأصحاب المشاريع الصغيرة', description = 'رصيد: تطبيق محاسبة يومية لأصحاب المشاريع الصغيرة. دفتر يومية بقيود مزدوجة، ميزان مراجعة، فواتير وضريبة، مخزون، وتقارير ربحية — عربي بالكامل ويعمل بدون إنترنت.' } = Astro.props;
+// روابط مطلقة للـSEO/المشاركة (Astro.site مضبوط في astro.config)
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(`${base}/rasid-logo.png`, Astro.site).href;
 ---
 <!doctype html>
 <html lang="ar" dir="rtl">
@@ -17,11 +20,21 @@ const { title = 'رصيد — مساعد مالي يومي لأصحاب المش
       content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
     />
     <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#7A004B" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:site_name" content="رصيد" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href={`${base}/rasid-logo.png`} />
     <!-- خطوط مستضافة ذاتيًا — preload للوزن العربي الحرج فقط -->
     <link rel="preload" href={cairoArabic} as="font" type="font/woff2" crossorigin />

@@ -1,6 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
 const base = import.meta.env.BASE_URL;
+
+// لقطات الشاشة — أسقط ملفًا باسم الـid (مثل dashboard.png أو trial-balance.webp) في src/assets/shots/
+// فيُعرض تلقائيًا مُحسَّنًا (WebP + أبعاد + lazy)؛ وإلا يبقى الإطار placeholder. drop-in بلا تعديل كود.
+const shotModules = import.meta.glob('../assets/shots/*.{webp,png,jpg,jpeg,avif}', { eager: true });
+const shots = {};
+for (const [path, mod] of Object.entries(shotModules)) {
+  const name = path.split('/').pop().replace(/\.(webp|png|jpe?g|avif)$/i, '');
+  shots[name] = mod.default;
+}
 const apk = 'https://github.com/mahmoudmamdouh2270-lgtm/rasid-download/releases/latest/download/rasid.apk';
 // بصمة SHA-256 لإصدار v1.6.0 (rasid.apk) — مطابقة لِما هو منشور على GitHub Release.
 const sha256 = 'c156241d0e149631b176a6d400bd92bad543b057f180fb5d7bc4781b51c5f91c';
@@ -92,7 +102,11 @@ const faq = [
           <p class="hero-meta">أندرويد 6.0+ · ~87MB · أحدث إصدار v1.6.0</p>
         </div>
         <div class="hero-art">
-          <div class="phone" data-shot="dashboard"><span>صورة الداشبورد</span></div>
+          <div class="phone">
+            {shots['dashboard']
+              ? <Image src={shots['dashboard']} alt="لوحة رصيد الرئيسية: النقدية والمديونيات والأرباح" loading="eager" />
+              : <span>صورة الداشبورد</span>}
+          </div>
         </div>
       </div>
     </section>
@@ -146,7 +160,11 @@ const faq = [
         <div class="screens">
           {screens.map((s, i) => (
             <article class={`screen-row ${i % 2 ? 'flip' : ''}`}>
-              <div class="phone" data-shot={s.id}><span>صورة: {s.t}</span></div>
+              <div class="phone">
+                {shots[s.id]
+                  ? <Image src={shots[s.id]} alt={`شاشة ${s.t} في تطبيق رصيد`} loading="lazy" />
+                  : <span>صورة: {s.t}</span>}
+              </div>
               <div class="screen-copy">
                 <h3>{s.t}</h3>
                 <p class="body">{s.d}</p>
@@ -287,7 +305,8 @@ const faq = [
   @media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } .hero-art { order: -1; } }
 
   /* phone frame (shared) */
-  .phone { width: min(248px, 68vw); aspect-ratio: 9 / 19; border-radius: 30px; background: color-mix(in oklch, var(--paper) 10%, var(--maroon-900)); border: 2px solid color-mix(in oklch, var(--gold-300) 35%, transparent); display: grid; place-items: center; color: color-mix(in oklch, var(--paper) 55%, transparent); font-size: var(--step-sm); text-align: center; box-shadow: 0 30px 60px -22px oklch(0.1 0.05 350 / .55); }
+  .phone { width: min(248px, 68vw); aspect-ratio: 9 / 19; border-radius: 30px; overflow: hidden; background: color-mix(in oklch, var(--paper) 10%, var(--maroon-900)); border: 2px solid color-mix(in oklch, var(--gold-300) 35%, transparent); display: grid; place-items: center; color: color-mix(in oklch, var(--paper) 55%, transparent); font-size: var(--step-sm); text-align: center; box-shadow: 0 30px 60px -22px oklch(0.1 0.05 350 / .55); }
+  .phone :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
   .screen-row .phone { background: var(--paper-2); border-color: var(--line); color: var(--muted); box-shadow: 0 24px 50px -26px oklch(0.4 0.08 350 / .35); }
 
   /* SECTIONS */
