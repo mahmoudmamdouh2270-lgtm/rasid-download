@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رصيد — مساعد مالي يومي لأصحاب المشاريع الصغيرة</title>
+  <meta name="description" content="رصيد: تطبيق محاسبة يومية بسيط لأصحاب المشاريع الصغيرة — دفتر يومية، ميزان مراجعة، فواتير، مخزون، وتقارير." />
+  <!-- زر التنزيل يشير لآخر إصدار منشور في mahmoudmamdouh2270-lgtm/rasid-download -->
+  <!-- الرابط الثابت ينزّل دائماً آخر release (latest) — لا حاجة لتعديله كل إصدار. -->
+  <link rel="icon" href="rasid-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #7A004B;
+      --gold: #B9872D;
+      --ink: #1d1722;
+      --muted: #6b6470;
+      --bg: #fbf7f9;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; width: 100%; }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #9c1064 100%);
+      color: #fff;
+      padding: 48px 0 56px;
+      text-align: center;
+    }
+    .logo {
+      width: 96px; height: 96px; object-fit: contain;
+      background: #fff; border-radius: 24px; padding: 12px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.18);
+    }
+    header h1 { font-size: 34px; font-weight: 900; margin-top: 16px; }
+    header p { font-size: 16px; opacity: .92; margin-top: 6px; font-weight: 600; }
+    .badge {
+      display: inline-block; margin-top: 18px; font-size: 13px; font-weight: 700;
+      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35);
+      padding: 6px 14px; border-radius: 999px;
+    }
+
+    main { flex: 1; padding: 40px 0; }
+
+    .cta {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      margin-top: -36px;
+    }
+    .download {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: #fff; text-decoration: none;
+      font-size: 19px; font-weight: 900;
+      padding: 16px 36px; border-radius: 16px;
+      box-shadow: 0 10px 26px rgba(185,135,45,.4);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .download:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(185,135,45,.5); }
+    .download svg { width: 24px; height: 24px; fill: currentColor; }
+    .meta { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+    .card {
+      background: var(--card); border: 1px solid #eee5ec; border-radius: 18px;
+      padding: 24px 26px; margin-top: 28px;
+      box-shadow: 0 4px 18px rgba(122,0,75,.05);
+    }
+    .card h2 { font-size: 18px; color: var(--primary); font-weight: 900; margin-bottom: 14px; }
+
+    .steps { list-style: none; counter-reset: s; }
+    .steps li {
+      counter-increment: s; position: relative;
+      padding: 8px 44px 8px 0; font-size: 15px; font-weight: 600;
+    }
+    .steps li::before {
+      content: counter(s); position: absolute; right: 0; top: 6px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-weight: 900; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px; }
+    .features div { font-size: 14.5px; font-weight: 600; padding-right: 22px; position: relative; }
+    .features div::before {
+      content: "✓"; position: absolute; right: 0; top: 0;
+      color: var(--gold); font-weight: 900;
+    }
+
+    footer { text-align: center; padding: 28px 0; color: var(--muted); font-size: 13px; font-weight: 600; }
+    @media (max-width: 560px) {
+      header h1 { font-size: 27px; }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <img class="logo" src="rasid-logo.png" alt="شعار رصيد" />
+      <h1>رصيد</h1>
+      <p>مساعد مالي يومي لأصحاب المشاريع الصغيرة</p>
+      <span class="badge">أحدث إصدار: v1.6.0 · أندرويد</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="cta">
+        <a class="download" href="https://github.com/mahmoudmamdouh2270-lgtm/rasid-download/releases/latest/download/rasid.apk">
+          <svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+          تحميل التطبيق (APK)
+        </a>
+        <span class="meta">يعمل على أندرويد 6.0 فأحدث · حجم ~87 ميجابايت</span>
+      </div>
+
+      <div class="card">
+        <h2>خطوات التثبيت</h2>
+        <ol class="steps">
+          <li>اضغط «تحميل التطبيق» وانتظر اكتمال تنزيل ملف الـ APK.</li>
+          <li>افتح الملف — لو ظهرت رسالة «السماح بالتثبيت من هذا المصدر»، فعّلها للمتصفح أو مدير الملفات.</li>
+          <li>اضغط «تثبيت»، وبعد الانتهاء افتح «رصيد» وابدأ.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2>إيه اللي يقدّمه رصيد؟</h2>
+        <div class="features">
+          <div>دفتر يومية بقيود مزدوجة</div>
+          <div>ميزان مراجعة + تصدير PDF</div>
+          <div>فواتير بيع وشراء + ضريبة</div>
+          <div>مخزون بتكلفة متوسط مرجح / FIFO</div>
+          <div>عملاء وموردون وأقساط</div>
+          <div>تقارير ربحية ومركز مالي</div>
+          <div>قفل الفترات المحاسبية</div>
+          <div>مزامنة سحابية آمنة</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>التحديث</h2>
+        <p style="font-size:15px;font-weight:600;color:var(--muted)">
+          لتحديث التطبيق، نزّل أحدث إصدار من نفس الزر بالأعلى وثبّته فوق النسخة الحالية —
+          بياناتك محفوظة ولن تُمسح.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">رصيد © 2026 — جميع الحقوق محفوظة</div>
+  </footer>
+</body>
+</html>
