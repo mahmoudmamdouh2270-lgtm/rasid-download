@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 const base = import.meta.env.BASE_URL;
 const apk = 'https://github.com/mahmoudmamdouh2270-lgtm/rasid-download/releases/latest/download/rasid.apk';
+// بصمة SHA-256 لإصدار v1.6.0 (rasid.apk) — مطابقة لِما هو منشور على GitHub Release.
+const sha256 = 'c156241d0e149631b176a6d400bd92bad543b057f180fb5d7bc4781b51c5f91c';
 
 const nav = [
   { href: '#about', label: 'عن رصيد' },
@@ -183,7 +185,11 @@ const faq = [
           <li>افتحه، واسمح بالتثبيت من المصدر لو طُلب.</li>
           <li>ثبّت وافتح «رصيد» وابدأ.</li>
         </ol>
-        <p class="checksum">بصمة SHA-256 للملف تُنشر هنا مع كل إصدار للتحقق. <span class="stub">[S4]</span></p>
+        <div class="checksum">
+          <p class="checksum-label">بصمة SHA-256 للملف — اتأكد إن اللي نزّلته هو الأصلي:</p>
+          <code class="checksum-hash" dir="ltr">{sha256}</code>
+          <p class="checksum-how">على ويندوز: <code dir="ltr">certutil -hashfile rasid.apk SHA256</code> · على أندرويد/لينكس: <code dir="ltr">sha256sum rasid.apk</code></p>
+        </div>
       </div>
     </section>
 
@@ -306,7 +312,11 @@ const faq = [
   .install { list-style: none; counter-reset: in; display: inline-grid; gap: .5rem; text-align: start; margin-block-start: var(--s-3); }
   .install li { counter-increment: in; position: relative; padding-inline-start: 2rem; color: var(--muted); }
   .install li::before { content: counter(in); position: absolute; inset-inline-start: 0; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--maroon-700); color: var(--paper); font-size: .8rem; display: grid; place-items: center; }
-  .checksum { margin-block-start: var(--s-3); font-size: var(--step-sm); color: var(--muted); }
+  .checksum { margin-block-start: var(--s-4); max-width: 52ch; margin-inline: auto; }
+  .checksum-label { font-size: var(--step-sm); color: var(--muted); margin-block-end: var(--s-1); }
+  .checksum-hash { display: block; font-family: ui-monospace, 'Cascadia Code', monospace; font-size: .8rem; line-height: 1.5; word-break: break-all; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s-2) var(--s-3); color: var(--maroon-700); }
+  .checksum-how { font-size: .8rem; color: var(--muted); margin-block-start: var(--s-2); }
+  .checksum-how code { font-family: ui-monospace, 'Cascadia Code', monospace; background: var(--paper-2); padding: .1rem .35rem; border-radius: 6px; font-size: .76rem; }
 
   /* FAQ */
   .faq { display: grid; gap: .6rem; max-width: 760px; }
@@ -322,10 +332,3 @@ const faq = [
   .foot-inner { display: flex; justify-content: space-between; gap: var(--s-2); flex-wrap: wrap; }
   .foot-inner a { color: var(--maroon-700); font-weight: 700; }
 </style>
-
-<script>
-  const head = document.getElementById('head');
-  const onScroll = () => head && head.classList.toggle('scrolled', window.scrollY > 8);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-</script>
