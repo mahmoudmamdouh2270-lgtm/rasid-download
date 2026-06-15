@@ -1,0 +1,10 @@
+# build output
+dist/
+.astro/
+# deps
+node_modules/
+# release artifacts (APK lives in GitHub Releases, never in the repo)
+*.apk
+# os / editor
+.DS_Store
+*.log

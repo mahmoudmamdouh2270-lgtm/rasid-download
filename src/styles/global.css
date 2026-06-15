@@ -1,0 +1,61 @@
+/* ===== رصيد — نظام التصميم (DESIGN.md) ===== */
+:root {
+  /* color — OKLCH، محايدات مائلة لحمرة البراند */
+  --maroon-900: oklch(0.28 0.13 352);
+  --maroon-700: oklch(0.40 0.17 353);
+  --maroon-500: oklch(0.52 0.18 355);
+  --gold-500: oklch(0.72 0.12 78);
+  --gold-300: oklch(0.85 0.09 84);
+  --ink: oklch(0.26 0.02 350);
+  --paper: oklch(0.985 0.006 350);
+  --paper-2: oklch(0.96 0.010 350);
+  --muted: oklch(0.55 0.02 350);
+  --line: oklch(0.90 0.012 350);
+
+  /* type */
+  --font-display: 'Reem Kufi', system-ui, sans-serif;
+  --font-body: 'Cairo', system-ui, sans-serif;
+  --step-hero: clamp(2.6rem, 7vw, 5.5rem);
+  --step-2xl: clamp(2rem, 4.5vw, 3.25rem);
+  --step-xl: clamp(1.5rem, 3vw, 2.1rem);
+  --step-lg: 1.35rem;
+  --step-md: 1.05rem;
+  --step-sm: 0.92rem;
+
+  /* space */
+  --s-1: 0.5rem; --s-2: 0.85rem; --s-3: 1.25rem; --s-4: 2rem;
+  --s-5: clamp(2.5rem, 5vw, 4rem);
+  --s-6: clamp(4rem, 9vw, 7rem);
+  --radius: 14px; --radius-lg: 22px;
+  --maxw: 1080px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; font-weight: 700; }
+
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: clamp(1rem, 4vw, 2rem); }
+.section { padding-block: var(--s-6); }
+
+/* reveal on scroll */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
