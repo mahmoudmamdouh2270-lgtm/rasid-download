@@ -7,9 +7,9 @@ const sha256 = 'c156241d0e149631b176a6d400bd92bad543b057f180fb5d7bc4781b51c5f91c
 
 // قنوات التواصل — املأ القيم لما توصل؛ يُعرض زر القناة اللي ليها قيمة فقط (مفيش روابط مكسورة).
 const contact = {
-  whatsapp: '', // رقم دولي بدون + أو 00 — مثال: 201001234567
-  linkedin: '', // رابط البروفايل الكامل — https://www.linkedin.com/in/...
-  email: '',    // إيميل التواصل — name@example.com
+  whatsapp: '201148889091', // رقم دولي بدون + أو 00
+  linkedin: 'https://www.linkedin.com/in/mahmoud-mamdouh2270/',
+  email: 'mahmoud.mamdouh2270@gmail.com',
 };
 const contactLinks = [
   contact.whatsapp && { id: 'whatsapp', label: 'واتساب', href: `https://wa.me/${contact.whatsapp}` },
@@ -23,6 +23,7 @@ const nav = [
   { href: '#screens', label: 'الشاشات' },
   { href: '#security', label: 'الأمان' },
   { href: '#faq', label: 'أسئلة' },
+  ...(contactLinks.length > 0 ? [{ href: '#contact', label: 'تواصل' }] : []),
 ];
 
 const features = [
